@@ -1,34 +1,35 @@
 var express = require('express');
 var path = require('path');
 var fs = require('fs');
-var preloadData = require('../src/componentDataPreloader.js');
+var preloader = require('../src/componentDataPreloader.js');
 
 var app = express();
 var clientPath = path.join(__dirname, '../client');
 
 app.get('/', function(request, response) {
-  renderHtml(request.path, function(err, html) {
+  loadFile(request.path, function(err, html) {
     if (!err) {
-      response.set('Content-Type', 'text/html');
-      response.send(html);
+      preloader.preload(html, function(err, preloaded) {
+        if (!err) {
+          response.set('Content-Type', 'text/html');
+          response.send(preloaded);
+        }
+      });
     }
-  });
+  })
 });
 
 app.use(express.static(clientPath));
 app.listen(8000);
 
-function renderHtml(relativePath, callback) {
+/*
+ * Return the file for the given path.
+ */
+function loadFile(relativePath, callback) {
   if (relativePath === '/') {
     relativePath = 'index.html';
   }
   var filePath = path.join(clientPath, relativePath);
   console.log(filePath);
-  fs.readFile(filePath, function(err, html) {
-    if (err) {
-      callback(err);
-    } else {
-      preloadData.preload(html, callback);
-    }
-  });
+  fs.readFile(filePath, { encoding: 'utf8' }, callback);
 }

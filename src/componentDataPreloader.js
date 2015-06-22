@@ -21,11 +21,22 @@ function preload(html, callback) {
       else {
         component.attr('preload', null);
         component.attr('preloaded', true);
-        component.text(body);
+        component.empty();
+        component.append('\n');
+        component.append(encapsulateData(body));
+        component.append('\n');
         preload($.html(), callback);
       }
     });
   }
+}
+
+function encapsulateData(data) {
+  var $ = cheerio;
+  var script = $('<script>');
+  script.attr('type', 'application/json');
+  script.text('\n' + data);
+  return script;
 }
 
 module.exports = {
