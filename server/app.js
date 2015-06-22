@@ -1,6 +1,7 @@
 var express = require('express');
 var path = require('path');
 var fs = require('fs');
+var cheerio = require('cheerio');
 
 var app = express();
 var clientPath = path.join(__dirname, '../client');
@@ -23,7 +24,16 @@ function renderHtml(relativePath, callback) {
   }
   var filePath = path.join(clientPath, relativePath);
   console.log(filePath);
-  fs.readFile(filePath, function(err, data) {
-    callback(err, data);
+  fs.readFile(filePath, function(err, html) {
+    if (!err) {
+      var processed = preloadData(html);
+    }
+    callback(err, processed);
   });
+}
+
+function preloadData(html) {
+  var $ = cheerio.load(html);
+  $('body').append("I'm here");
+  return $.html();
 }
