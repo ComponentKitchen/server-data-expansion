@@ -29,8 +29,8 @@ Render a tweet in Twitter style.
     text-decoration: underline;
   }
 
-  #screenName {
-    color: gray;
+  #details {
+    color: #8899a6;
   }
   </style>
   <template>
@@ -40,8 +40,10 @@ Render a tweet in Twitter style.
     </a>
     <a id="profileLink" href="{{_userProfileUrl(tweet)}}">
       <span id="userName">{{tweet.user.name}}</span>
-      <span id="screenName">
+      <span id="details">
         @<span>{{tweet.user.screen_name}}</span>
+        &middot;
+        <span id="tweetDate">{{_tweetDate(tweet)}}</span>
       </span>
     </a>
     <div>{{tweet.text}}</div>
@@ -55,6 +57,15 @@ Polymer({
 
   properties: {
     tweet: Object
+  },
+
+  _tweetDate: function(tweet) {
+    if (!tweet.created_at) {
+      return '';
+    }
+    var date = new Date(Date.parse(tweet.created_at));
+    var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    return months[date.getMonth()] + ' ' + date.getDate();
   },
 
   _userProfileUrl: function(tweet) {
