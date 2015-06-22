@@ -8,14 +8,23 @@
 
   <script src="bower_components/webcomponentsjs/webcomponents-lite.js"></script>
   <link rel="import" href="preloadable-ajax.html">
-  <link rel="import" href="data-demo.html">
+  <link rel="import" href="tweet-demo.html">
+
+  <style>
+  body {
+    color: #292f33;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    line-height: 18px;
+  }
+  </style>
 
 </head>
 
 <body unresolved>
   <template is="dom-bind">
-    <preloadable-ajax preload url="sampleData.json" handle-as="json" last-response="{{data}}"></preloadable-ajax>
-    <div>{{data.message}}</div>
+    <preloadable-ajax preload url="sampleData.json" handle-as="json" last-response="{{tweet}}"></preloadable-ajax>
+    <tweet-demo tweet="{{tweet}}"></tweet-demo>
   </template>
 </body>
 

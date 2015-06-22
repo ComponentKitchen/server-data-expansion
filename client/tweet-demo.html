@@ -1,0 +1,65 @@
+<!--
+Render a tweet in Twitter style.
+-->
+
+<link rel="import" href="bower_components/polymer/polymer.html">
+
+<dom-module id="tweet-demo">
+  <style>
+  #imageProfileLink {
+    text-decoration: none;
+  }
+
+  #profileImage {
+    border-radius: 0 0 6px 6px;
+    float: left;
+    margin-right: 0.5em;
+  }
+
+  #userName {
+    font-weight: bold;
+  }
+
+  #profileLink {
+    color: inherit;
+    text-decoration: none;
+  }
+  #profileLink:hover #userName {
+    color: #0084b4;
+    text-decoration: underline;
+  }
+
+  #screenName {
+    color: gray;
+  }
+  </style>
+  <template>
+    <iron-ajax auto url="{{url}}" handle-as="json" last-response="{{data}}"></iron-ajax>
+    <a id="imageProfileLink" href="{{_userProfileUrl(tweet)}}">
+      <img id="profileImage" src="{{tweet.user.profile_image_url}}">
+    </a>
+    <a id="profileLink" href="{{_userProfileUrl(tweet)}}">
+      <span id="userName">{{tweet.user.name}}</span>
+      <span id="screenName">
+        @<span>{{tweet.user.screen_name}}</span>
+      </span>
+    </a>
+    <div>{{tweet.text}}</div>
+  </template>
+</dom-module>
+
+<script>
+Polymer({
+
+  is: 'tweet-demo',
+
+  properties: {
+    tweet: Object
+  },
+
+  _userProfileUrl: function(tweet) {
+    return 'https://twitter.com/' + tweet.user.screen_name;
+  }
+
+});
+</script>
