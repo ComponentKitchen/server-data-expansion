@@ -14,7 +14,7 @@
 
 <body unresolved>
   <template is="dom-bind">
-    <preloadable-ajax url="sampleData.json" handle-as="json" last-response="{{data}}"></preloadable-ajax>
+    <preloadable-ajax preload url="http://localhost:8000/sampleData.json" handle-as="json" last-response="{{data}}"></preloadable-ajax>
     <div>{{data.message}}</div>
   </template>
 </body>
