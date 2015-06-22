@@ -1,3 +1,7 @@
+<!--
+Wrapper around iron-ajax that can preload data from its DOM content.
+-->
+
 <link rel="import" href="bower_components/polymer/polymer.html">
 <link rel="import" href="bower_components/iron-ajax/iron-ajax.html">
 
@@ -30,10 +34,10 @@ Polymer({
 
   ready: function() {
     if (this.preloaded) {
-      console.log("preloadable-ajax: preloaded");
+      console.log("preloadable-ajax: data preloaded");
       this._processPreloadedData();
     } else {
-      console.log("preloadable-ajax: loading...");
+      console.log("preloadable-ajax: requesting data");
       this.$.ajax.generateRequest();
     }
   },

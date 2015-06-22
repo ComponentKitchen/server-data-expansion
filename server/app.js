@@ -8,9 +8,13 @@ var clientPath = path.join(__dirname, '../client');
 
 app.get('/', function(request, response) {
   loadFile(request.path, function(err, html) {
-    if (!err) {
+    if (err) {
+      console.error(err);
+    } else {
       preloader.preload(html, function(err, preloaded) {
-        if (!err) {
+        if (err) {
+          console.error(err);
+        } else {
           response.set('Content-Type', 'text/html');
           response.send(preloaded);
         }
@@ -33,3 +37,5 @@ function loadFile(relativePath, callback) {
   console.log(filePath);
   fs.readFile(filePath, { encoding: 'utf8' }, callback);
 }
+
+preloader.readLocalFile = loadFile;
