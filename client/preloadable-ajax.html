@@ -1,0 +1,55 @@
+<link rel="import" href="bower_components/polymer/polymer.html">
+<link rel="import" href="bower_components/iron-ajax/iron-ajax.html">
+
+<dom-module id="preloadable-ajax">
+  <template>
+    <iron-ajax id="ajax" url="{{url}}" handle-as="{{handleAs}}" last-response="{{lastResponse}}"></iron-ajax>
+  </template>
+</dom-module>
+
+<script>
+Polymer({
+
+  is: 'preloadable-ajax',
+
+  properties: {
+    handleAs: {
+      notify: true,
+      type: String
+    },
+    lastResponse: {
+      notify: true,
+      type: Object
+    },
+    preloaded: Boolean,
+    url: {
+      notify: true,
+      type: String
+    }
+  },
+
+  ready: function() {
+    if (this.preloaded) {
+      console.log("preloadable-ajax: preloaded");
+      this._processPreloadedData();
+    } else {
+      console.log("preloadable-ajax: loading...");
+      this.$.ajax.generateRequest();
+    }
+  },
+
+  _processPreloadedData: function() {
+
+    // TODO: Is there value in retrieving projected content?
+    var text = Polymer.dom(this).textContent;
+
+    var data = this.handleAs === 'json' ?
+      JSON.parse(text) :
+      text;
+
+    // Fake an XHR response.
+    this.$.ajax._setLastResponse(data);
+  }
+
+});
+</script>

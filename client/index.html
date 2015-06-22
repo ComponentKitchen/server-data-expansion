@@ -7,12 +7,20 @@
   <title>Data expansion demo</title>
 
   <script src="bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+  <link rel="import" href="preloadable-ajax.html">
   <link rel="import" href="data-demo.html">
 
 </head>
 
 <body unresolved>
-  <data-demo url="../server/sampleData.json"></data-demo>
+  <template is="dom-bind">
+    <preloadable-ajax preloaded url="../server/sampleData.json" handle-as="json" last-response="{{data}}">
+{
+  "message": "Hello, world!"
+}
+    </preloadable-ajax>
+    <div>{{data.message}}</div>
+  </template>
 </body>
 
 </html>
