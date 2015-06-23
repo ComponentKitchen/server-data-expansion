@@ -5,7 +5,7 @@ Wrapper around iron-ajax that can preload data from its DOM content.
 <link rel="import" href="bower_components/polymer/polymer.html">
 <link rel="import" href="bower_components/iron-ajax/iron-ajax.html">
 
-<dom-module id="preloadable-ajax">
+<dom-module id="sample-ajax">
   <template>
     <iron-ajax id="ajax" url="{{url}}" handle-as="{{handleAs}}" last-response="{{lastResponse}}"></iron-ajax>
   </template>
@@ -14,7 +14,7 @@ Wrapper around iron-ajax that can preload data from its DOM content.
 <script>
 Polymer({
 
-  is: 'preloadable-ajax',
+  is: 'sample-ajax',
 
   properties: {
     handleAs: {
@@ -34,10 +34,10 @@ Polymer({
 
   ready: function() {
     if (this.preloaded) {
-      // console.log("preloadable-ajax: data preloaded");
+      // console.log("sample-ajax: data preloaded");
       this._processPreloadedData();
     } else {
-      // console.log("preloadable-ajax: requesting data");
+      // console.log("sample-ajax: requesting data");
       this.$.ajax.generateRequest();
     }
   },
