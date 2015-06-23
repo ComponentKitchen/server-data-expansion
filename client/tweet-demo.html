@@ -31,6 +31,7 @@ Render a tweet in Twitter style.
     text-decoration: underline;
   }
 
+  #screenName,
   #details {
     color: #8899a6;
   }
@@ -41,12 +42,14 @@ Render a tweet in Twitter style.
       <a id="profileLink" href="{{_userProfileUrl(tweet)}}">
         <img id="profileImage" src="{{tweet.user.profile_image_url}}">
         <span id="userName">{{tweet.user.name}}</span>
-        <span id="details">
+        <span id="screenName">
           @<span>{{tweet.user.screen_name}}</span>
         </span>
       </a>
-      &middot;
-      <span id="tweetDate">{{_tweetDate(tweet)}}</span>
+      <span id="details">
+        &middot;
+        <span id="tweetDate">{{_tweetDate(tweet)}}</span>
+      </span>
     </span>
     <div>{{tweet.text}}</div>
   </template>
