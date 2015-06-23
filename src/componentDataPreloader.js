@@ -10,7 +10,7 @@ var url = require('url');
  * Return the given HTML with any data components preloaded inline.
  *
  * For a component to be preloaded, it must set a "preload" attribute to a
- * truthy value, and have a non-empty "url" attribute.
+ * value (e.g., "url") that points to another attribute that holds a URL.
  */
 function preload(html, callback) {
   var $ = cheerio.load(html);
@@ -21,12 +21,13 @@ function preload(html, callback) {
   // function recursively to handle any subsequent preloadable data components.
   // That's quite inefficient -- we'll end up parsing the HTML again in each
   // pass -- but keeps the code simpler.
-  var component = $('[preload][url]').eq(0);
-  if (component.length === 0) {
+  var component = $('[preload]').eq(0);
+  var preloadAttribute = component.length > 0 && component.attr('preload');
+  var dataUrl = preloadAttribute && component.attr(preloadAttribute);
+  if (!dataUrl) {
     // No more preloadable components exist.
     callback(null, $.html());
   } else {
-    var dataUrl = component.attr('url');
     var urlParts = url.parse(dataUrl);
     var readFile = urlParts.host
       ? readRemoteFile // URL has host = use HTTP

@@ -25,7 +25,7 @@
 
 <body unresolved>
   <template is="dom-bind">
-    <preloadable-ajax preload url="sampleData.json" handle-as="json" last-response="{{tweet}}"></preloadable-ajax>
+    <preloadable-ajax preload="url" url="sampleData.json" handle-as="json" last-response="{{tweet}}"></preloadable-ajax>
     <tweet-demo tweet="{{tweet}}"></tweet-demo>
   </template>
 </body>
