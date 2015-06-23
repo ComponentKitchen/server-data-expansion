@@ -37,17 +37,17 @@ Render a tweet in Twitter style.
   </style>
   <template>
     <iron-ajax auto url="{{url}}" handle-as="json" last-response="{{data}}"></iron-ajax>
-    <a id="imageProfileLink" href="{{_userProfileUrl(tweet)}}">
-      <img id="profileImage" src="{{tweet.user.profile_image_url}}">
-    </a>
-    <a id="profileLink" href="{{_userProfileUrl(tweet)}}">
-      <span id="userName">{{tweet.user.name}}</span>
-      <span id="details">
-        @<span>{{tweet.user.screen_name}}</span>
-        &middot;
-        <span id="tweetDate">{{_tweetDate(tweet)}}</span>
-      </span>
-    </a>
+    <span>
+      <a id="profileLink" href="{{_userProfileUrl(tweet)}}">
+        <img id="profileImage" src="{{tweet.user.profile_image_url}}">
+        <span id="userName">{{tweet.user.name}}</span>
+        <span id="details">
+          @<span>{{tweet.user.screen_name}}</span>
+        </span>
+      </a>
+      &middot;
+      <span id="tweetDate">{{_tweetDate(tweet)}}</span>
+    </span>
     <div>{{tweet.text}}</div>
   </template>
 </dom-module>
