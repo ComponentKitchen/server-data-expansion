@@ -1,2 +1,3 @@
-# server-data-expansion
-Server-side expansion of data components
+# Installation
+
+Run `node server/app.js`.
