@@ -23,6 +23,9 @@ at that URL.
 
 * Run `node server/app.js`.
 * Open localhost:8000.
-* By default, server data is preloaded in the sample-ajax component.
+* By default, server data is preloaded in the sample-ajax component. In the
+  debugger's Network tab, note that the page loads 13 resources. The page source
+  will show JSON embedded in the HTML.
 * If you remove `preload="url"` from the sample-ajax instance in index.html,
   the component will make a separate request to fetch data in the normal way.
+  The page will now load 14 resources.
